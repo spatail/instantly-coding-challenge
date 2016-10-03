@@ -1,0 +1,27 @@
+function usage() {
+  echo "./build <dfs-name | dfs-more | bfs-name | bfs-more> <path>"
+}
+
+function clean() {
+  rm -rf out/*
+}
+
+function compile() {
+  javac -d ./out ./src/main/com/instantly/challenge/traversal/*.java
+}
+
+function run() {
+  java -cp ./out com.instantly.challenge.traversal.TraversalDriver $1 $2 $3
+}
+
+function all() {
+  clean && compile && run $1 $2 $3
+}
+
+case $1 in
+  "dfs-name") all dfs name $2 ;;
+  "dfs-more") all dfs more $2 ;;
+  "bfs-name") all bfs name $2 ;;
+  "bfs-more") all bfs more $2 ;;
+  *) usage
+esac
